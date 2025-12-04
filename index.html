@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Com amor, para Jojô</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Cinzel:wght@400;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* --- Configurações Visuais --- */
+        :root {
+            --primary-color: #d63384; 
+            --secondary-color: #ff85a2;
+            --bg-color: #fff0f5;
+            --text-color: #4a4a4a;
+            --paper-color: #fffbf0;
+            --rope-color: #8d6e63; /* Marrom corda */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--bg-color) 0%, #ffe4e1 100%);
+            font-family: 'Lora', serif;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* --- Corações Flutuantes (Fundo) --- */
+        .bg-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .heart-float {
+            position: absolute;
+            font-size: 20px;
+            color: rgba(214, 51, 132, 0.15);
+            animation: floatUp linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            20% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        /* --- Layout Principal --- */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            animation: fadeIn 2s ease;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.5em;
+            color: var(--primary-color);
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-family: 'Cinzel', serif;
+            color: #777;
+            margin-top: 10px;
+            letter-spacing: 2px;
+        }
+
+        /* --- Contador --- */
+        .counter-box {
+            background: rgba(255,255,255,0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 2px dashed var(--secondary-color);
+            margin-bottom: 40px;
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+        }
+        .timer-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+        .time-value { font-size: 1.5em; font-weight: bold; color: #333; }
+        .time-label { font-size: 0.7em; text-transform: uppercase; color: #666; }
+        
+        .curiosity-box {
+            margin-top: 20px;
+            font-size: 1.1em; /* Um pouco maior para leitura fácil */
+            font-style: italic;
+            color: #856404;
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #ffc107;
+            min-height: 50px; /* Evita que a caixa pule de tamanho */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+
+        /* --- Carta --- */
+        .love-letter {
+            background: var(--paper-color);
+            padding: 50px;
+            margin: 20px 0;
+            border-radius: 2px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-width: 750px;
+            position: relative;
+            line-height: 1.9;
+            font-size: 1.15em;
+            border: 1px solid #f0e6d2;
+        }
+        .tape {
+            background: rgba(255,255,255,0.5);
+            width: 100px; height: 30px;
+            position: absolute; top: -15px; left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2em;
+            text-align: right;
+            color: var(--primary-color);
+            margin-top: 40px;
+        }
+
+        /* --- Galeria Varal (Mágica) --- */
+        .gallery-container {
+            width: 100%;
+            padding: 40px 0;
+            background-image: linear-gradient(to bottom, transparent 48px, var(--rope-color) 49px, var(--rope-color) 51px, transparent 52px);
+            background-size: 100% 280px; 
+            background-position: top center;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 80px 40px; 
+            padding: 0 20px;
+        }
+
+        /* O Polaroid */
+        .polaroid {
+            background: white;
+            padding: 12px 12px 40px 12px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            transform-origin: top center;
+            animation: sway 3s ease-in-out infinite alternate;
+            margin-top: 25px; 
+        }
+
+        .polaroid:nth-child(odd) { animation-duration: 3.5s; animation-delay: 0.5s; }
+        .polaroid:nth-child(even) { animation-duration: 4s; animation-delay: 1s; }
+        .polaroid:nth-child(3n) { animation-duration: 3s; animation-delay: 1.5s; }
+
+        .polaroid:hover {
+            transform: scale(1.1) rotate(0deg) !important;
+            z-index: 10;
+            animation-play-state: paused;
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            display: block;
+            border: 1px solid #eee;
+        }
+
+        /* O Pregador */
+        .polaroid::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 30px;
+            background: #d7ccc8;
+            border-radius: 2px;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            z-index: 5;
+        }
+
+        .caption {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            left: 0;
+            font-family: 'Dancing Script', cursive;
+            color: #555;
+            font-size: 1.2em;
+        }
+
+        @keyframes sway {
+            from { transform: rotate(-2deg); }
+            to { transform: rotate(2deg); }
+        }
+
+        /* --- Lightbox (Zoom) --- */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            animation: fadeIn 0.3s;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80vh;
+            border: 10px solid white;
+            border-radius: 5px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+        }
+        .lightbox-close {
+            color: white;
+            font-size: 40px;
+            position: absolute;
+            top: 20px; right: 30px;
+            cursor: pointer;
+        }
+
+        /* --- Botão de Música --- */
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 10px 15px;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9em;
+            border: 2px solid var(--primary-color);
+            transition: transform 0.2s;
+        }
+        .music-btn:active { transform: scale(0.95); }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 3.5em; }
+            .gallery-container { background-size: 100% 260px; }
+            .gallery { gap: 60px 15px; grid-template-columns: repeat(2, 1fr); }
+            .polaroid { padding: 8px 8px 30px 8px; margin-top: 15px; }
+            .timer-grid { grid-template-columns: repeat(3, 1fr); }
+            .time-unit:nth-child(4), .time-unit:nth-child(5) { grid-column: span 1.5; }
+            .love-letter { padding: 30px; width: 90%; }
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div class="bg-hearts" id="heartsContainer"></div>
+
+    <div class="container">
+        <header>
+            <h1>Com amor, para Jojô</h1>
+            <p class="subtitle">24 anos de luz & nossa história</p>
+        </header>
+
+        <!-- Contador -->
+        <div class="counter-box">
+            <h2 style="font-family: 'Dancing Script'; margin: 0 0 15px 0; color: #d63384;">Juntos há:</h2>
+            <div class="timer-grid" id="timer"></div>
+            <!-- Curiosidade dinâmica aqui -->
+            <div class="curiosity-box" id="curiosity">Carregando curiosidades... ✨</div>
+        </div>
+
+        <!-- Carta -->
+        <article class="love-letter">
+            <div class="tape"></div>
+            <p><strong>Minha Joanne,</strong></p>
+            <p>
+                Hoje, enquanto celebro seus 24 anos, me pego pensando em como a vida é feita de momentos que, à primeira vista, parecem comuns, mas que transformam tudo para sempre. O dia <strong>07 de março de 2025</strong> marcou oficialmente o início da nossa caminhada, mas a verdade é que meu coração já tinha começado a bater diferente muito antes.
+            </p>
+            <p>
+                Eu sabia que era amor desde a primeira vez que te vi naquele treinamento da brigada. Havia algo no seu olhar, na sua energia, que me prendeu de um jeito que eu não conseguia explicar, mas que sentia profundamente. Ali, no meio de tudo aquilo, eu tive a certeza de que queria você por perto.
+            </p>
+            <p>
+                Desde então, cada dia ao seu lado tem sido uma descoberta incrível. Amo o seu sorriso que desarma qualquer preocupação, a sua força que me inspira a ser melhor e a forma única como você ilumina qualquer lugar onde chega. Você não é apenas minha namorada; é minha parceira, minha confidente e a melhor parte dos meus dias.
+            </p>
+            <p>
+                Este site é apenas um pequeno gesto para tentar materializar o que sinto. Que seus 24 anos sejam repletos de conquistas grandiosas, e que eu tenha o privilégio de estar ao seu lado para aplaudir de pé cada uma delas.
+            </p>
+            <p>Obrigado por ser exatamente quem você é. Obrigado por ter me escolhido.</p>
+            <div class="signature">
+                Com todo amor,<br>seu namorado, Ivan.
+            </div>
+        </article>
+
+        <!-- Galeria VARAL -->
+        <div class="gallery-container">
+            <div class="gallery">
+                <!-- Foto 1 -->
+                <div class="polaroid" onclick="openLightbox(this)">
+                    <img src="foto1.jpg" alt="Nós"> 
+                    <div class="caption">Nós dois ❤️</div>
+                </div>
+
+                <!-- Foto 2 -->
+                <div class="polaroid" onclick="openLightbox(this)">
+                    <img src="foto2.jpg" alt="Amor">
+                    <div class="caption">Dia Perfeito</div>
+                </div>
+
+                <!-- Foto 3 -->
+                <div class="polaroid" onclick="openLightbox(this)">
+                    <img src="foto3.jpg" alt="Sorriso">
+                    <div class="caption">Seu sorriso</div>
+                </div>
+
+                <!-- Foto 4 -->
+                <div class="polaroid" onclick="openLightbox(this)">
+                    <img src="foto4.jpg" alt="Lembrança">
+                    <div class="caption">Lembrança</div>
+                </div>
+
+                <!-- Foto 5 -->
+                <div class="polaroid" onclick="openLightbox(this)">
+                    <img src="foto5.jpg" alt="Felicidade">
+                    <div class="caption">Te amo</div>
+                </div>
+
+                <!-- Foto 6 -->
+                <div class="polaroid" onclick="openLightbox(this)">
+                    <img src="foto6.jpg" alt="Juntos">
+                    <div class="caption">Pra sempre</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox (Zoom) -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="Zoom">
+    </div>
+
+    <!-- Botão de Música -->
+    <div class="music-btn" onclick="toggleMusic()">
+        <span>🎵</span> Nossa Música
+    </div>
+    <audio id="bgMusic" loop>
+        <source src="musica.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // --- Corações ---
+        function createHearts() {
+            const container = document.getElementById('heartsContainer');
+            const symbols = ['❤', '♥', '💕', '✨'];
+            for(let i=0; i<25; i++) {
+                const h = document.createElement('div');
+                h.className = 'heart-float';
+                h.innerHTML = symbols[Math.floor(Math.random()*symbols.length)];
+                h.style.left = Math.random()*100 + 'vw';
+                h.style.animationDuration = (Math.random()*10 + 10) + 's';
+                h.style.animationDelay = Math.random()*5 + 's';
+                container.appendChild(h);
+            }
+        }
+        createHearts();
+
+        // --- Contador Principal ---
+        const start = new Date('2025-03-07T00:00:00');
+        
+        function updateTimer() {
+            const now = new Date();
+            const diff = now - start;
+            
+            const days = Math.floor(diff / (1000*60*60*24));
+            const hours = Math.floor((diff / (1000*60*60)) % 24);
+            const minutes = Math.floor((diff / (1000*60)) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+            
+            let months = (now.getFullYear() - start.getFullYear()) * 12;
+            months -= start.getMonth();
+            months += now.getMonth();
+            if(now.getDate() < start.getDate()) months--;
+            if(months < 0) months = 0;
+
+            document.getElementById('timer').innerHTML = `
+                <div class="time-unit"><div class="time-value">${months}</div><div class="time-label">Meses</div></div>
+                <div class="time-unit"><div class="time-value">${days}</div><div class="time-label">Dias Totais</div></div>
+                <div class="time-unit"><div class="time-value">${hours}</div><div class="time-label">Horas</div></div>
+                <div class="time-unit"><div class="time-value">${minutes}</div><div class="time-label">Min</div></div>
+                <div class="time-unit"><div class="time-value">${seconds}</div><div class="time-label">Seg</div></div>
+            `;
+
+            // Chama a atualização das curiosidades
+            updateCuriosity(diff, days);
+        }
+
+        // --- Lógica de Curiosidades Aleatórias (Restaurada) ---
+        function updateCuriosity(diffMs, totalDays) {
+            // Calcula algumas métricas divertidas
+            const tripsToMoon = (totalDays / 3).toFixed(1); // Ida de 3 dias
+            const heartbeats = Math.floor(diffMs / 1000 * 1.3); // Média de 80bpm (1.3 por seg)
+            const breaths = Math.floor(diffMs / 1000 * 0.25); // Média de 15 respirações/min
+            const secondsTogether = Math.floor(diffMs / 1000).toLocaleString('pt-BR');
+
+            // Lista de frases
+            const curiosities = [
+                `Já respiramos o mesmo ar por cerca de ${breaths.toLocaleString('pt-BR')} vezes juntos.`,
+                `Nesse tempo, meu coração bateu aproximadamente ${heartbeats.toLocaleString('pt-BR')} vezes por você! 💓`,
+                `Já se passaram ${secondsTogether} segundos de pura felicidade ao seu lado.`,
+                `Tempo suficiente para ir à Lua e voltar ${tripsToMoon} vezes! 🚀`,
+                `Se o amor fosse combustível, já teríamos chegado em Marte! 🪐`,
+                `Cada milésimo de segundo com você vale a pena! ✨`
+            ];
+
+            // Muda a frase a cada 10 segundos (10000ms)
+            // Usa o tempo atual para calcular o índice, assim todos veem a mesma frase na mesma hora
+            const index = Math.floor(Date.now() / 10000) % curiosities.length;
+            
+            const curiosityElement = document.getElementById('curiosity');
+            curiosityElement.innerText = "Curiosidade: " + curiosities[index];
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // --- Lightbox ---
+        function openLightbox(element) {
+            const img = element.querySelector('img').src;
+            document.getElementById('lightbox-img').src = img;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        // --- Música ---
+        let isPlaying = false;
+        function toggleMusic() {
+            const audio = document.getElementById('bgMusic');
+            const btn = document.querySelector('.music-btn');
+            if(isPlaying) {
+                audio.pause();
+                btn.innerHTML = '<span>🎵</span> Nossa Música';
+            } else {
+                audio.play().catch(e => alert("Para tocar a música, interaja com a página primeiro!"));
+                btn.innerHTML = '<span>⏸️</span> Pausar';
+            }
+            isPlaying = !isPlaying;
+        }
+    </script>
+</body>
+</html>
